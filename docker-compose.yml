@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  web:
+    image: php:8.2-apache
+    container_name: web_esteh
+    ports:
+      - "80:80"
+    volumes:
+      - ./app/:/var/www/html/esteh
+    depends_on:
+      - db
+  db:
+    image: mysql:latest
+    container_name: mysql_web
+    environment:
+      MYSQL_ROOT_PASSWORD: bismillah
+      MYSQL_DATABASE: _esteh
+      # MYSQL_USER: myuser
+      # MYSQL_PASSWORD: mypassword
+    volumes:
+      - ./data/esteh_data:/var/lib/mysql
