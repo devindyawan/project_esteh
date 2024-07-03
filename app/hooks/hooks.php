@@ -39,3 +39,6 @@ function home_url(): string
         return 'https://' . $_SERVER['HTTP_HOST'] . '/';
     }
 }
+
+// Database
+require_once('./model/config/config.php');

@@ -19,10 +19,10 @@ class Route
     public function get_content()
     {
 
-        if (file_exists('./app/page' . $this->file_location . '/index.php')) {
+        if (file_exists('./app/page' . $this->file_location . '.php')) {
             // Page
 
-            require_once('./app/page' . $this->file_location . '/index.php');
+            require_once('./app/page' . $this->file_location . '.php');
         } else if (!getUriSegment(1)) {
             // Home
 
@@ -38,7 +38,7 @@ class Route
     {
         global $template;
 
-        if (file_exists('./app/page' . $this->file_location . '/index.php')) {
+        if (file_exists('./app/page' . $this->file_location . '.php')) {
             // Page Template
 
             $scriptCheck = file_exists('./app/script/page/' . getUriSegment(countUriSegment()) . '.js') ? true : false;
