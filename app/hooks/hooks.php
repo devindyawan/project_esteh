@@ -26,6 +26,8 @@ function countUriSegment()
 
     if ($_SERVER['HTTP_HOST'] === 'localhost') {
         $uriLength -= 2;
+    } else {
+        $uriLength -= 1;
     }
 
     return $uriLength;

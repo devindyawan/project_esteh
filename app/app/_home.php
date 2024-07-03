@@ -1,3 +1,3 @@
 <?php
 
-print_r(Migration::parse_sql());
+print_r(arrayUri());

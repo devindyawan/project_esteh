@@ -63,37 +63,60 @@ class Route
         }
     }
 
-    public function setTemplate()
-    {
-        global $template;
+    public function validation_script_file(): array {
+
+        if(getUriSegment(1, 'dashboard')) {
+            $template_array = [
+                "scriptFile" => ['/app/dashboard/script/_admin_home.js'],
+                "styleFile" => ['/app/dashboard/css/_admin_home.css'],
+            ];
+
+            
+        }
 
         if (file_exists('./app/page' . $this->file_location . '.php')) {
             // Page Template
-
+    
             $scriptCheck = file_exists('./app/script/page/' . getUriSegment(countUriSegment()) . '.js') ? true : false;
             $styleCheck = file_exists('./app/css/' . getUriSegment(countUriSegment()) . '.css') ? true : false;
-
-
+    
+    
             $scriptFile = $scriptCheck ? home_url() . '/app/script/page/' . getUriSegment(countUriSegment()) . '.js' : false;
             $styleFile = $styleCheck ? home_url() . '/app/css/' . getUriSegment(countUriSegment()) . '.css' : false;
         } else if (!getUriSegment(1)) {
             // Home Template
-
+    
             $scriptFile = home_url() . '/app/script/page/_home.js';
             $styleFile = home_url() . '/app/css/_home.css';
         } else {
             // Not Found Template
-
+    
             $scriptFile = home_url() . '/app/script/page/_notfound.js';
             $styleFile = home_url() . '/app/css/_notfound.css';
         }
+        return [
+            "scriptFile" => [$scriptFile],
+            "styleFile" => [$styleFile],
+        ];;
+    }
+
+    public function setTemplate()
+    {
+        global $template;
+
+        $scriptFile = $this->validation_script_file()['scriptFile'];
+        $styleFile = $this->validation_script_file()['styleFile'];
 
         if ($scriptFile) {
-            $template->setScript('<script src="' . $scriptFile . '?' . time() . '"></script>');
+            foreach ($scriptFile as $script) {
+                $template->setScript('<script src="' . $script . '?' . time() . '"></script>');
+            }
         }
 
         if ($styleFile) {
-            $template->setStyle('<link rel="stylesheet" href="' . $styleFile . '?' . time() . '" />');
+            foreach ($styleFile as $style) {
+                $template->setStyle('<link rel="stylesheet" href="' . $style . '?' . time() . '" />');
+            }
         }
     }
 }
