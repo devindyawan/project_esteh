@@ -41,8 +41,12 @@ class Route
         if (file_exists('./app/page' . $this->file_location . '/index.php')) {
             // Page Template
 
-            $scriptFile = home_url() . '/app/script/page/' . getUriSegment(countUriSegment()) . '.js';
-            $styleFile = home_url() . '/app/css/' . getUriSegment(countUriSegment()) . '.css';
+            $scriptCheck = file_exists('./app/script/page/' . getUriSegment(countUriSegment()) . '.js') ? true : false;
+            $styleCheck = file_exists('./app/css/' . getUriSegment(countUriSegment()) . '.css') ? true : false;
+
+
+            $scriptFile = $scriptCheck ? home_url() . '/app/script/page/' . getUriSegment(countUriSegment()) . '.js' : false;
+            $styleFile = $styleCheck ? home_url() . '/app/css/' . getUriSegment(countUriSegment()) . '.css' : false;
         } else if (!getUriSegment(1)) {
             // Home Template
 
@@ -55,7 +59,12 @@ class Route
             $styleFile = home_url() . '/app/css/_notfound.css';
         }
 
-        $template->setScript('<script src="' . $scriptFile . '?' . time() . '"></script>');
-        $template->setStyle('<link rel="stylesheet" href="' . $styleFile . '?' . time() . '" />');
+        if ($scriptFile) {
+            $template->setScript('<script src="' . $scriptFile . '?' . time() . '"></script>');
+        }
+
+        if ($styleFile) {
+            $template->setStyle('<link rel="stylesheet" href="' . $styleFile . '?' . time() . '" />');
+        }
     }
 }
