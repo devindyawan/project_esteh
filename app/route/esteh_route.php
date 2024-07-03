@@ -9,16 +9,20 @@ class Route
      * @uses create file on ./app/page with folder name as slug and one file index.php
      */
 
-    public function get_content()
+    public function __construct()
     {
         for ($index = 1; $index < countUriSegment() + 1; $index++) {
             $this->file_location .= '/' . getUriSegment($index);
         }
+    }
+
+    public function get_content()
+    {
 
         if (file_exists('./app/page' . $this->file_location . '/index.php')) {
             // Page
 
-            require_once('./app/page' . $file_location . '/index.php');
+            require_once('./app/page' . $this->file_location . '/index.php');
         } else if (!getUriSegment(1)) {
             // Home
 
@@ -51,7 +55,7 @@ class Route
             $styleFile = home_url() . '/app/css/_notfound.css';
         }
 
-        $template->setScript('<script src="' . $scriptFile . '"></script>');
-        $template->setStyle('<link rel="stylesheet" href="' . $styleFile . '" />');
+        $template->setScript('<script src="' . $scriptFile . '?' . time() . '"></script>');
+        $template->setStyle('<link rel="stylesheet" href="' . $styleFile . '?' . time() . '" />');
     }
 }

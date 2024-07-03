@@ -49,7 +49,9 @@ $route->setTemplate();
 
 <body>
     <?= $route->get_content() ?>
+
 </body>
+<script src="<?= home_url() . '/app/script/index.js?' . time() ?>"></script>
 <?= $template->getScript() ?>
 
 </html>
