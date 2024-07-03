@@ -19,6 +19,22 @@ class Route
     public function get_content()
     {
 
+        if (getUriSegment(1, 'dashboard')) {
+            if (!isset($_SESSION['access_token'])) {
+                require_once('./app/dashboard/login/login.php');
+
+                set_url(home_url() . '/dashboard/login');
+            } else {
+                unset($_POST);
+
+
+
+                require_once('./app/dashboard/admin_panel/_home_dashboard.php');
+                set_url(home_url() . '/dashboard');
+            }
+            return;
+        }
+
         if (file_exists('./app/page' . $this->file_location . '.php')) {
             // Page
 

@@ -7,11 +7,23 @@ services:
       - "80:80"
     volumes:
       - ./app/:/var/www/html/esteh
+    # command: sh -c "
+    #   apt update && \
+    #   docker-php-ext-install mysqli pdo pdo_mysql && \
+    #   a2enmod rewrite"
+    restart: no
+    stdin_open: true
+    tty: true
     depends_on:
       - db
+
+    # if web is stoped, run docker-compose start
+
   db:
     image: mysql:latest
     container_name: mysql_web
+    # ports:
+    #   - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: bismillah
       MYSQL_DATABASE: _esteh
@@ -19,3 +31,14 @@ services:
       # MYSQL_PASSWORD: mypassword
     volumes:
       - ./data/esteh_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db:db
+    ports:
+      - 8000:80
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: bismillah
+      MYSQL_ROOT_PASSWORD: root

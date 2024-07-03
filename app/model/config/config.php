@@ -9,13 +9,6 @@ class Config
         "dbname" => "",
     );
 
-    public $connection;
-
-    // public function __construct()
-    // {
-    //     $this->connection = mysqli_connect(self::HOST, self::USER, self::PASSWORD, self::DBNAME);
-    // }
-
     public function __construct($host, $user, $password, $dbname)
     {
         self::$config["host"] = $host;

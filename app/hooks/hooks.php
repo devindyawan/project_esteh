@@ -42,3 +42,32 @@ function home_url(): string
 
 // Database
 require_once('./model/config/config.php');
+
+function print_var_name($var)
+{
+    foreach ($GLOBALS as $var_name => $value) {
+        if ($value === $var) {
+            return $var_name;
+        }
+    }
+
+    return false;
+}
+
+function get_var_on_file($file): array
+{
+    $file = file_get_contents($file);
+    preg_match_all('/\$[A-Za-z0-9_]+/', $file, $vars);
+
+    return $vars[0];
+}
+
+function set_url($url)
+{
+    echo ("<script>history.replaceState({},'','$url');</script>");
+}
+
+function refresh()
+{
+    echo ("<script>location.reload();</script>");
+}
