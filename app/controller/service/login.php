@@ -16,6 +16,7 @@ class Login
 
                 update_access_token($access_token, $data['id']);
                 $_SESSION['access_token'] = $access_token;
+                $_SESSION['id'] = $data['id'];
 
                 refresh();
             } else {
@@ -28,6 +29,11 @@ class Login
 
     public static function logout()
     {
+        remove_access_token($_SESSION['id']);
+        unset($_SESSION['access_token']);
+        unset($_SESSION['id']);
+
+        refresh();
     }
 
     public static function get_iswronng()

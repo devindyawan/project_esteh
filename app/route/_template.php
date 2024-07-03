@@ -37,6 +37,10 @@ $route = new Route;
 $route->setTemplate();
 
 session_start();
+
+if (getUriSegment(1, 'api')) {
+    $route->get_content();
+}
 ?>
 
 <!DOCTYPE html>

@@ -27,11 +27,24 @@ class Route
             } else {
                 unset($_POST);
 
-
-
                 require_once('./app/dashboard/admin_panel/_home_dashboard.php');
                 set_url(home_url() . '/dashboard');
             }
+
+            // If user access home url /dashboard/logout
+            if (getUriSegment(2, 'logout')) {
+                Login::logout();
+            }
+            return;
+        }
+
+        if (getUriSegment(1, 'api')) {
+
+            if (getUriSegment(2, 'admin')) {
+                // validation access token
+            }
+
+            require_once('./controller/service/api.php');
             return;
         }
 

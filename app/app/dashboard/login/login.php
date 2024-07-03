@@ -14,5 +14,5 @@ if (isset($_POST['login'])) {
 </form>
 
 <?php
-echo Login::get_iswronng() ? 'Wrong Password' : '';
+echo Login::get_iswronng() ? 'Wrong password or username' : '';
 ?>
