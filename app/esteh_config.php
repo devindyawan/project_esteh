@@ -11,7 +11,7 @@
  */
 
 // Database host
-define('HOST', '172.19.0.2');
+define('HOST', '172.28.0.2');
 
 // Database user
 define('USER', 'root');

@@ -73,3 +73,13 @@ function refresh()
 {
     echo ("<script>location.reload();</script>");
 }
+
+function _file_location()
+{
+    $file_location = '';
+    for ($index = 1; $index < countUriSegment() + 1; $index++) {
+        $file_location .= '/' . getUriSegment($index);
+    }
+
+    return $file_location;
+}

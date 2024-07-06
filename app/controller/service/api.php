@@ -1,5 +1,7 @@
 <?php
 
+$headers = getallheaders();
+
 echo json_encode([
-    "message" => "Hello World",
+    $headers
 ]);

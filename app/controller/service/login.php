@@ -14,11 +14,10 @@ class Login
             if (password_verify($password, $data['password'])) {
                 $access_token = password_hash($password . '_esteh' . $data['password'], PASSWORD_BCRYPT);
 
-                update_access_token($access_token, $data['id']);
                 $_SESSION['access_token'] = $access_token;
                 $_SESSION['id'] = $data['id'];
 
-                refresh();
+                header('Location: ' . home_url() . '/dashboard');
             } else {
                 self::$is_wrong = true;
             }
@@ -29,7 +28,6 @@ class Login
 
     public static function logout()
     {
-        remove_access_token($_SESSION['id']);
         unset($_SESSION['access_token']);
         unset($_SESSION['id']);
 
